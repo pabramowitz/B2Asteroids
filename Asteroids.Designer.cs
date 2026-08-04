@@ -41,6 +41,8 @@
             Paint += Asteroids_Paint;
             Layout += Asteroids_Layout;
             Resize += Asteroids_Resize;
+            KeyDown += Asteroids_KeyDown;
+            KeyUp += Asteroids_KeyUp;
             ResumeLayout(false);
         }
 
