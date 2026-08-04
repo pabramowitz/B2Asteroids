@@ -1,4 +1,5 @@
 // Inside your Asteroid class/struct
+using System.Drawing;
 using System.Numerics;
 
 namespace B2Asteroids
@@ -10,6 +11,17 @@ namespace B2Asteroids
         public static Random RandomNumberGenerator = new Random();
 
         public double Radius; // Used for broad-phase collision / bounding circle
+        public Color Color { get; private set; }
+        public SolidBrush Brush { get; private set; }
+
+        private static Color MakeRandomColor()
+        {
+            return Color.FromArgb(
+                255,
+                RandomNumberGenerator.Next(80, 256),
+                RandomNumberGenerator.Next(80, 256),
+                RandomNumberGenerator.Next(80, 256));
+        }
 
         // Call this when spawning the asteroid
         public Asteroid(double radius, Vector2 position, int heading, double speed, Form parentWindow): base(AsteroidPoints)
@@ -22,6 +34,9 @@ namespace B2Asteroids
             Heading = heading;
             Speed = speed;
             Position = position;
+
+            Color = MakeRandomColor();
+            Brush = new SolidBrush(Color);
 
             for (int i = 0; i < VertexCount; i++)
             {

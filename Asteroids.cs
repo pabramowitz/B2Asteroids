@@ -25,7 +25,7 @@ namespace B2Asteroids
         Plane PlayerPlane;
         Ufo? EnemyUfo;
 
-        SolidBrush PlaneBrush, BlackBrush, BulletBrush, AsteroidBrush, TextBrush, UfoBrush;
+        SolidBrush PlaneBrush, BlackBrush, BulletBrush, TextBrush, UfoBrush;
         Pen UfoPen, BulletPen;
         Font TextFont;
         Graphics BitmapGc, WindowsGc;
@@ -45,7 +45,6 @@ namespace B2Asteroids
             BlackBrush = new SolidBrush(Color.Black);
             PlaneBrush = new SolidBrush(Color.Gray);
             BulletBrush = new SolidBrush(Color.White);
-            AsteroidBrush = new SolidBrush(Color.Brown);
             TextBrush = new SolidBrush(Color.White);
             UfoBrush = new SolidBrush(Color.LightGreen);
             UfoPen = new Pen(UfoBrush, 3);
@@ -372,7 +371,7 @@ namespace B2Asteroids
         {
             foreach (var asteroid in ActiveAsteroids)
             {
-                    BitmapGc.FillPolygon(AsteroidBrush, asteroid.PositionVertices); 
+                    BitmapGc.FillPolygon(asteroid.Brush, asteroid.PositionVertices); 
             }
         }
 
