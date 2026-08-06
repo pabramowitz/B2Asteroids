@@ -64,14 +64,7 @@ namespace B2Asteroids
             WindowsGc = Graphics.FromImage(GameBitmap);
 
             InitializeComponent();
-        }
 
-        /// <summary>
-        ///    Required method for Designer support - do not modify
-        ///    the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeWindow()
-        {
             this.FrameTimer = new Timer(this.components);
             FrameTimer.Interval = 25;
             FrameTimer.Tick += new System.EventHandler(this.TimerTick);
@@ -79,6 +72,7 @@ namespace B2Asteroids
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 16);
             this.ClientSize = new System.Drawing.Size(492, 473);
         }
+
 
         protected void Asteroids_Resize(object sender, System.EventArgs e)
         {
@@ -143,8 +137,6 @@ namespace B2Asteroids
 
         protected void Asteroids_Layout(object sender, LayoutEventArgs e)
         {
-            InitializeWindow();
-
             //Init variables
             WindowsGc = Graphics.FromHwnd(this.Handle);
             GameBitmap = new Bitmap(this.Width, this.Height);
