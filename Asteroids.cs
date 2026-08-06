@@ -65,9 +65,6 @@ namespace B2Asteroids
 
             InitializeComponent();
 
-            this.FrameTimer = new Timer(this.components);
-            FrameTimer.Interval = 25;
-            FrameTimer.Tick += new System.EventHandler(this.TimerTick);
             this.Text = "B2 Asteroids";
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 16);
             this.ClientSize = new System.Drawing.Size(492, 473);

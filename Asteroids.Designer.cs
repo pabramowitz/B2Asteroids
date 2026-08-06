@@ -1,4 +1,6 @@
-﻿namespace B2Asteroids
+﻿using Timer = System.Windows.Forms.Timer;
+
+namespace B2Asteroids
 {
     partial class Asteroids
     {
@@ -43,6 +45,11 @@
             Resize += Asteroids_Resize;
             KeyDown += Asteroids_KeyDown;
             KeyUp += Asteroids_KeyUp;
+
+            this.FrameTimer = new Timer(this.components);
+            FrameTimer.Interval = 25;
+            FrameTimer.Tick += new System.EventHandler(this.TimerTick);
+
             ResumeLayout(false);
         }
 
