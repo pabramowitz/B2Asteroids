@@ -196,7 +196,41 @@ namespace Asteroids
 
         private void ResetPlayer()
         {
-            PlayerPlane.SetLocation(new Vector2(this.Width / 2, this.Height / 2), 0, 0, 0, this);
+            bool collision;
+
+            // Default is to start the plane in the center of the map
+            Vector2 spawnPosition = new Vector2(
+                this.Width / 2, 
+                this.Height / 2
+            );
+
+            do
+            {
+                collision = false;
+
+                // Try to find a safe space to spawn the plane
+                PlayerPlane.SetLocation(spawnPosition, 0, 0, 0, this);
+
+                foreach (var asteroid in ActiveAsteroids)
+                {
+                    foreach (var vertex in PlayerPlane.PositionVertices)
+                    {
+                        if (asteroid.CheckCollision(new Vector2(vertex.X, vertex.Y)))
+                        {
+                            collision = true;
+                            break;
+                        }
+                    }
+                    if (collision) break;
+                }
+
+                // On future attempts, pick a random position
+                spawnPosition = new Vector2(
+                    RandomNumberGenerator.Next(50, this.Width - 50),
+                    RandomNumberGenerator.Next(50, this.Height - 50)
+                ); 
+
+            } while (collision);
         }
 
         private void NextLevel()
