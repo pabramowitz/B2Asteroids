@@ -1,4 +1,4 @@
-namespace B2Asteroids
+namespace Asteroids
 {
     internal static class Program
     {

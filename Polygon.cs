@@ -1,7 +1,7 @@
 // Inside your Asteroid class/struct
 using System.Numerics;
 
-namespace B2Asteroids
+namespace Asteroids
 {
 
     public abstract class Polygon
@@ -15,6 +15,8 @@ namespace B2Asteroids
         public PointF[] ShapeVertices; // Shape centered at (0,0)
 
         public PointF[] PositionVertices; // PositionVertices; // Shape in world space
+
+        public abstract void Draw(Graphics gc);
 
         public Polygon(int vertexCount)
         {

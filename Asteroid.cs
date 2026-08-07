@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Numerics;
 
-namespace B2Asteroids
+namespace Asteroids
 {
     public class Asteroid: Polygon
     {
@@ -48,6 +48,10 @@ namespace B2Asteroids
                 ShapeVertices[i] = new PointF((float)(Math.Cos(angle) * r), (float)(Math.Sin(angle) * r));
             }
 
+        }
+        public override void Draw(Graphics gc)
+        {
+            gc.FillPolygon(this.Brush, this.PositionVertices);
         }
 
         public void MoveAsteroid(Form parentWindow)

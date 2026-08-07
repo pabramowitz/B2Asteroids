@@ -1,16 +1,19 @@
 // Inside your Asteroid class/struct
 using System.Numerics;
 
-namespace B2Asteroids
+namespace Asteroids
 {
     public class Ufo: Polygon
     {
         private const int UfoPoints = 8;
         private const int UfoSpeed = 4;
- 
+        SolidBrush UfoBrush;
+
         // Call this when spawning the UFO
         public Ufo(): base(UfoPoints)
         {
+            UfoBrush = new SolidBrush(Color.LightGreen);
+
             ShapeVertices = new PointF[VertexCount];
             PositionVertices = new PointF[VertexCount];
 
@@ -36,7 +39,6 @@ namespace B2Asteroids
                 PositionVertices[i].Y = (float)(Position.Y + ShapeVertices[i].Y);
             }
         }
-
         public bool MoveUfo(Form parentWindow)
         {
             Position.X += (float)(UfoSpeed * Math.Sin(Heading * (Math.PI / 180.0)));
@@ -56,6 +58,11 @@ namespace B2Asteroids
             }
             
             return false;
+        }
+
+        public override void Draw(Graphics gc)
+        {
+            gc.FillPolygon(this.UfoBrush, this.PositionVertices);
         }
     }
 }

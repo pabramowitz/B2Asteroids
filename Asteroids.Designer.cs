@@ -1,6 +1,6 @@
 ﻿using Timer = System.Windows.Forms.Timer;
 
-namespace B2Asteroids
+namespace Asteroids
 {
     partial class Asteroids
     {

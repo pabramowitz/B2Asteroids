@@ -1,10 +1,12 @@
 // Inside your Asteroid class/struct
 using System.Numerics;
 
-namespace B2Asteroids
+namespace Asteroids
 {
     public class Plane: Polygon
     {
+        private SolidBrush PlaneBrush;
+
         private const int PlanePoints = 12;
         
         public double SpeedX;
@@ -13,6 +15,8 @@ namespace B2Asteroids
         // Call this when spawning the plane
         public Plane(): base(PlanePoints)
         {
+            PlaneBrush = new SolidBrush(Color.Gray);
+
             ShapeVertices = new PointF[VertexCount];
             PositionVertices = new PointF[VertexCount];
                     
@@ -50,6 +54,11 @@ namespace B2Asteroids
                 PositionVertices[i].Y = (float)(Position.Y + ShapeVertices[i].X * Math.Sin(Heading * (Math.PI / 180.0)) + 
                         ShapeVertices[i].Y * Math.Cos(Heading * (Math.PI / 180.0)));
             }
+        }
+
+        public override void Draw(Graphics gc)
+        {
+            gc.FillPolygon(this.PlaneBrush, this.PositionVertices);
         }
     }
 }

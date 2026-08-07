@@ -1,4 +1,4 @@
-namespace B2Asteroids
+namespace Asteroids
 {
     using System;
     using System.Drawing;
@@ -25,8 +25,8 @@ namespace B2Asteroids
         Plane PlayerPlane;
         Ufo? EnemyUfo;
 
-        SolidBrush PlaneBrush, BlackBrush, BulletBrush, TextBrush, UfoBrush;
-        Pen UfoPen, BulletPen;
+        SolidBrush BlackBrush, TextBrush, BulletBrush, UfoBrush;
+        Pen ShieldPen, UfoPen;
         Font TextFont;
         Graphics BitmapGc, WindowsGc;
         Boolean TurningLeft, TurningRight, Accelerating, GameOver, IsShieldOn;
@@ -43,12 +43,11 @@ namespace B2Asteroids
         public Asteroids()
         {
             BlackBrush = new SolidBrush(Color.Black);
-            PlaneBrush = new SolidBrush(Color.Gray);
             BulletBrush = new SolidBrush(Color.White);
             TextBrush = new SolidBrush(Color.White);
             UfoBrush = new SolidBrush(Color.LightGreen);
             UfoPen = new Pen(UfoBrush, 3);
-            BulletPen = new Pen(BulletBrush, 2);
+            ShieldPen = new Pen(BulletBrush, 2);
 
             TextFont = new Font("Arial", 12);
 
@@ -114,7 +113,8 @@ namespace B2Asteroids
                     new Vector2(
                         (float)(PlayerPlane.Position.X + 10.0 * Math.Sin(PlayerPlane.Heading * (Math.PI / 180.0))),
                         (float)(PlayerPlane.Position.Y - 10.0 * Math.Cos(PlayerPlane.Heading * (Math.PI / 180.0)))),
-                    (int)PlayerPlane.Heading);
+                    (int)PlayerPlane.Heading,
+                    BulletBrush);
 
                 PlayerBullets.Add(newBullet);
             }
@@ -240,7 +240,8 @@ namespace B2Asteroids
                 new Vector2(
                     (float)(EnemyUfo.Position.X),
                     (float)(EnemyUfo.Position.Y)),
-                RandomNumberGenerator.Next(360));
+                RandomNumberGenerator.Next(360),
+                UfoBrush);
 
                 UfoBullets.Add(newBullet);
             }
@@ -260,7 +261,7 @@ namespace B2Asteroids
             DrawUfoBullets();
             DrawScore();
 
-            //End game if
+            //End game if  player out of lives
             if (GameOver)
             {
                 FrameTimer?.Enabled = false;
@@ -311,7 +312,7 @@ namespace B2Asteroids
         {
             if (EnemyUfo != null) 
             {
-                BitmapGc.FillPolygon(UfoBrush, EnemyUfo.PositionVertices);
+                EnemyUfo.Draw(BitmapGc);
             }
         }
 
@@ -360,7 +361,7 @@ namespace B2Asteroids
         {
             foreach (var asteroid in ActiveAsteroids)
             {
-                    BitmapGc.FillPolygon(asteroid.Brush, asteroid.PositionVertices); 
+                asteroid.Draw(BitmapGc);
             }
         }
 
@@ -368,7 +369,7 @@ namespace B2Asteroids
         {
             foreach (var bullet in PlayerBullets)
             {
-                BitmapGc.FillRectangle(BulletBrush, bullet.Position.X - 1, bullet.Position.Y - 1, 3, 3);
+                bullet.Draw(BitmapGc);
             }
         }
 
@@ -376,7 +377,7 @@ namespace B2Asteroids
         {
             foreach (var bullet in UfoBullets)
             {
-                BitmapGc.FillRectangle(UfoBrush, bullet.Position.X - 1, bullet.Position.Y - 1, 3, 3);
+                bullet.Draw(BitmapGc);
             }   
         }
 
@@ -388,11 +389,11 @@ namespace B2Asteroids
         private void DrawPlayer()
         {
             // Draw plane
-            BitmapGc.FillPolygon(PlaneBrush, PlayerPlane.PositionVertices);
+            PlayerPlane.Draw(BitmapGc);
 
             // Draw shield
             if (IsShieldOn == true)
-                BitmapGc.DrawEllipse(BulletPen,
+                BitmapGc.DrawEllipse(ShieldPen,
                               (int)(PlayerPlane.Position.X - 20),
                               (int)(PlayerPlane.Position.Y - 20),
                               40, 40);
