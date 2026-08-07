@@ -389,7 +389,7 @@ namespace Asteroids
         private void DrawPlayer()
         {
             // Draw plane
-            PlayerPlane.Draw(BitmapGc);
+            PlayerPlane.Draw(BitmapGc, Accelerating);
 
             // Draw shield
             if (IsShieldOn == true)
