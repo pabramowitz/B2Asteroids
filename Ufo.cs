@@ -41,8 +41,8 @@ namespace Asteroids
         }
         public bool MoveUfo(Form parentWindow)
         {
-            Position.X += (float)(UfoSpeed * Math.Sin(Heading * (Math.PI / 180.0)));
-            Position.Y -= (float)(UfoSpeed * Math.Cos(Heading * (Math.PI / 180.0)));
+            Position.X += (float)(UfoSpeed * Math.Sin(HeadingRadians));
+            Position.Y -= (float)(UfoSpeed * Math.Cos(HeadingRadians));
 
             // Compute drawing points
             for (int i = 0; i < UfoPoints; i++)

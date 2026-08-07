@@ -22,8 +22,8 @@ namespace Asteroids
 
         public bool MoveBullet(Form parentWindow)
         {
-            Position.X += (float)(BulletSpeed * Math.Sin(Heading * (Math.PI / 180.0)));
-            Position.Y -= (float)(BulletSpeed * Math.Cos(Heading * (Math.PI / 180.0)));
+            Position.X += (float)(BulletSpeed * Math.Sin(HeadingRadians));
+            Position.Y -= (float)(BulletSpeed * Math.Cos(HeadingRadians));
             Position = ClipPosition(Position, parentWindow);
 
             // Check if maximum distance flown

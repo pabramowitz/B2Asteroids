@@ -25,6 +25,14 @@ namespace Asteroids
             PositionVertices = new PointF[vertexCount];
         }
 
+        public double  HeadingRadians
+        {
+            get
+            {
+                return Heading * (Math.PI / 180.0);
+            }
+        }
+
         public Vector2 ClipPosition(Vector2 position, Form parentWindow)
         {
             if (position.X < 0)

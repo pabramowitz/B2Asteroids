@@ -62,19 +62,19 @@ namespace Asteroids
             // Compute drawing points
             for (int i = 0; i < PlanePoints; i++)
             {
-                PositionVertices[i].X = (float)(Position.X + ShapeVertices[i].X * Math.Cos(Heading * (Math.PI / 180.0)) - 
-                        ShapeVertices[i].Y * Math.Sin(Heading * (Math.PI / 180.0)));
-                PositionVertices[i].Y = (float)(Position.Y + ShapeVertices[i].X * Math.Sin(Heading * (Math.PI / 180.0)) + 
-                        ShapeVertices[i].Y * Math.Cos(Heading * (Math.PI / 180.0)));
+                PositionVertices[i].X = (float)(Position.X + ShapeVertices[i].X * Math.Cos(HeadingRadians) - 
+                        ShapeVertices[i].Y * Math.Sin(HeadingRadians));
+                PositionVertices[i].Y = (float)(Position.Y + ShapeVertices[i].X * Math.Sin(HeadingRadians) + 
+                        ShapeVertices[i].Y * Math.Cos(HeadingRadians));
             }
 
             // Calculate thrust points
             for (int i = 0; i < ThrustPoints; i++)
             {
-                ThrustPositionVertices[i].X = (float)(Position.X + ThrustShapeVertices[i].X * Math.Cos(Heading * (Math.PI / 180.0)) - 
-                        ThrustShapeVertices[i].Y * Math.Sin(Heading * (Math.PI / 180.0)));
-                ThrustPositionVertices[i].Y = (float)(Position.Y + ThrustShapeVertices[i].X * Math.Sin(Heading * (Math.PI / 180.0)) + 
-                        ThrustShapeVertices[i].Y * Math.Cos(Heading * (Math.PI / 180.0)));
+                ThrustPositionVertices[i].X = (float)(Position.X + ThrustShapeVertices[i].X * Math.Cos(HeadingRadians) - 
+                        ThrustShapeVertices[i].Y * Math.Sin(HeadingRadians));
+                ThrustPositionVertices[i].Y = (float)(Position.Y + ThrustShapeVertices[i].X * Math.Sin(HeadingRadians) + 
+                        ThrustShapeVertices[i].Y * Math.Cos(HeadingRadians));
             }
         }
 

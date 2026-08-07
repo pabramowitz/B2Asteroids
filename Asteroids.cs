@@ -111,8 +111,8 @@ namespace Asteroids
             {
                 Bullet newBullet = new Bullet(
                     new Vector2(
-                        (float)(PlayerPlane.Position.X + 10.0 * Math.Sin(PlayerPlane.Heading * (Math.PI / 180.0))),
-                        (float)(PlayerPlane.Position.Y - 10.0 * Math.Cos(PlayerPlane.Heading * (Math.PI / 180.0)))),
+                        (float)(PlayerPlane.Position.X + 10.0 * Math.Sin(PlayerPlane.HeadingRadians)),
+                        (float)(PlayerPlane.Position.Y - 10.0 * Math.Cos(PlayerPlane.HeadingRadians))),
                     (int)PlayerPlane.Heading,
                     BulletBrush);
 
@@ -490,8 +490,8 @@ namespace Asteroids
             //Player accelerate
             if (Accelerating)
             {
-                speedX += 0.2 * Math.Sin(PlayerPlane.Heading * (Math.PI / 180.0));
-                speedY -= 0.2 * Math.Cos(PlayerPlane.Heading * (Math.PI / 180.0));
+                speedX += 0.2 * Math.Sin(PlayerPlane.HeadingRadians);
+                speedY -= 0.2 * Math.Cos(PlayerPlane.HeadingRadians);
 
                 double newSpeed = Math.Sqrt(speedX * speedX + speedY * speedY);
                 if (newSpeed > 5)
