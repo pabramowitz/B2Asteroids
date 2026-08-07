@@ -42,7 +42,7 @@ namespace Asteroids
 
         public Asteroids()
         {
-            BlackBrush = new SolidBrush(Color.Black);
+            BlackBrush = new SolidBrush(Color.FromArgb(255, 0, 0, 50));
             BulletBrush = new SolidBrush(Color.White);
             TextBrush = new SolidBrush(Color.White);
             UfoBrush = new SolidBrush(Color.LightGreen);
@@ -393,11 +393,23 @@ namespace Asteroids
 
             // Draw shield
             if (IsShieldOn == true)
-                BitmapGc.DrawEllipse(ShieldPen,
-                              (int)(PlayerPlane.Position.X - 20),
-                              (int)(PlayerPlane.Position.Y - 20),
-                              40, 40);
-
+            {
+                // Draw a multi-layered glowing shield effect
+                for (int i = 0; i < 3; i++)
+                {
+                    int alpha = 255 - 60 * i; // Decreasing opacity for inner layers
+                    using (Pen glowPen = new Pen(Color.FromArgb(alpha, Color.White), 2))
+                    {
+                        float shieldRadius = 20f; 
+                        int radius = (int) shieldRadius - 2*i;
+                        BitmapGc.DrawEllipse(glowPen, 
+                            PlayerPlane.Position.X - radius, 
+                            PlayerPlane.Position.Y - radius, 
+                            radius * 2, 
+                            radius * 2);
+                    }
+                }
+            }
         }
 
         private void DecreaseLives()
