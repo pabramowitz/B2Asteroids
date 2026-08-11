@@ -42,7 +42,7 @@ namespace Asteroids
 
         public Asteroids()
         {
-            BlackBrush = new SolidBrush(Color.FromArgb(255, 0, 0, 50));
+            BlackBrush = new SolidBrush(Color.FromArgb(255, 200, 200, 255));
             BulletBrush = new SolidBrush(Color.White);
             TextBrush = new SolidBrush(Color.White);
             UfoBrush = new SolidBrush(Color.LightGreen);
@@ -354,10 +354,30 @@ namespace Asteroids
         {
             if (UfoExplosionRange > 0)
             {
-                BitmapGc.DrawEllipse(UfoPen,
-                              UfoExplosionX - UfoExplosionRange,
-                              UfoExplosionY - UfoExplosionRange,
-                              2 * UfoExplosionRange, 2 * UfoExplosionRange);
+                using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Orange))) 
+                {
+                    BitmapGc.FillEllipse(shadowBrush,
+                                UfoExplosionX - UfoExplosionRange + 4,
+                                UfoExplosionY - UfoExplosionRange + 4,
+                                2 * UfoExplosionRange, 2 * UfoExplosionRange);
+                }
+
+                using (Pen outlinePen = new Pen(Color.Black, 3))
+                {
+                    BitmapGc.DrawEllipse(outlinePen,
+                                UfoExplosionX - UfoExplosionRange,
+                                UfoExplosionY - UfoExplosionRange,
+                                2 * UfoExplosionRange, 2 * UfoExplosionRange);
+                }
+
+                using (Pen explosionPen = new Pen(Color.Yellow, 1))
+                {
+                    BitmapGc.DrawEllipse(explosionPen,
+                                UfoExplosionX - UfoExplosionRange,
+                                UfoExplosionY - UfoExplosionRange,
+                                2 * UfoExplosionRange, 2 * UfoExplosionRange);
+                }
+                              
                 UfoExplosionRange += 10;
                 if (UfoExplosionRange >= 100)
                     UfoExplosionRange = -1;

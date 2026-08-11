@@ -62,7 +62,26 @@ namespace Asteroids
 
         public override void Draw(Graphics gc)
         {
+            // Draw hard-edged shadow/highlight for cel-shading effect
+            PointF[] shadowVertices = new PointF[PositionVertices.Length];
+            for (int i = 0; i < PositionVertices.Length; i++)
+            {
+                shadowVertices[i] = new PointF(PositionVertices[i].X + 4, PositionVertices[i].Y + 4);
+            }
+
+            using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Black)))
+            {
+                gc.FillPolygon(shadowBrush, shadowVertices);
+            }
+
+            // Draw the main UFO body
             gc.FillPolygon(this.UfoBrush, this.PositionVertices);
+
+            // Draw a thick, cartoon-style black outline
+            using (Pen outlinePen = new Pen(Color.Black, 3))
+            {
+                gc.DrawPolygon(outlinePen, this.PositionVertices);
+            }
         }
     }
 }

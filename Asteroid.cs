@@ -51,36 +51,26 @@ namespace Asteroids
         }
         public override void Draw(Graphics gc)
         {
-            // Draw the main asteroid body
+            // Draw hard-edged shadow/highlight for cel-shading effect
+            PointF[] shadowVertices = new PointF[PositionVertices.Length];
+            for (int i = 0; i < PositionVertices.Length; i++)
+            {
+                shadowVertices[i] = new PointF(PositionVertices[i].X + 4, PositionVertices[i].Y + 4);
+            }
+
+            using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Black)))
+            {
+                gc.FillPolygon(shadowBrush, shadowVertices);
+            }
+
+            // Draw the main asteroid body with its flat color
             gc.FillPolygon(this.Brush, this.PositionVertices);
 
-            // Add an outline around the asteroid
-            using (Pen outlinePen = new Pen(Color.Black, 2))
+            // Draw a thick, cartoon-style black outline
+            using (Pen outlinePen = new Pen(Color.Black, 3))
             {
                 gc.DrawPolygon(outlinePen, this.PositionVertices);
             }
-
-            // Add wireframe depth lines connecting vertices to a inner point or shifted center
-   /*         using (Pen wireframePen = new Pen(Color.FromArgb(100, Color.Black), 1))
-            {
-                PointF center = new PointF(Position.X, Position.Y);
-                for (int i = 0; i < PositionVertices.Length; i++)
-                {
-                    gc.DrawLine(wireframePen, center, PositionVertices[i]);
-                }
-            }  */
-
-            // Add a simple 3-D highlight/shadow effect by shifting vertices slightly
-            PointF[] highlightVertices = new PointF[PositionVertices.Length];
-            for (int i = 0; i < PositionVertices.Length; i++)
-            {
-                highlightVertices[i] = new PointF(PositionVertices[i].X - 2, PositionVertices[i].Y - 2);
-            }
-
-            using (Brush highlightBrush = new SolidBrush(Color.FromArgb(60, Color.White)))
-            {
-                gc.FillPolygon(highlightBrush, highlightVertices);
-            }           
         }
 
         public void MoveAsteroid(Form parentWindow)

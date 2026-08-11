@@ -42,9 +42,9 @@ namespace Asteroids
             ShapeVertices[10] = new Point(-3, 4);
             ShapeVertices[11] = new Point(-2, 2);
 
-            ThrustShapeVertices[0] = new Point(0, 18);
-            ThrustShapeVertices[1] = new Point(2, 10);
-            ThrustShapeVertices[2] = new Point(-2, 10);
+            ThrustShapeVertices[0] = new Point(0, 25);
+            ThrustShapeVertices[1] = new Point(5, 10);
+            ThrustShapeVertices[2] = new Point(-5, 10);
         }
 
         public void SetLocation(Vector2 position, int heading, double speedX, double speedY, Form parentWindow)
@@ -80,8 +80,26 @@ namespace Asteroids
 
         public override void Draw(Graphics gc)
         {
-            // Draw just the plane
+            // Draw hard-edged shadow/highlight for cel-shading effect
+            PointF[] shadowVertices = new PointF[PositionVertices.Length];
+            for (int i = 0; i < PositionVertices.Length; i++)
+            {
+                shadowVertices[i] = new PointF(PositionVertices[i].X + 4, PositionVertices[i].Y + 4);
+            }
+
+            using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Black)))
+            {
+                gc.FillPolygon(shadowBrush, shadowVertices);
+            }
+
+            // Draw the main plane body
             gc.FillPolygon(this.PlaneBrush, this.PositionVertices);
+
+            // Draw a thick, cartoon-style black outline
+            using (Pen outlinePen = new Pen(Color.Black, 3))
+            {
+                gc.DrawPolygon(outlinePen, this.PositionVertices);
+            }
         }
 
         public void Draw(Graphics gc, bool isAccelerating)
@@ -92,8 +110,24 @@ namespace Asteroids
             // Draw flame if accelerating
             if (isAccelerating)
             {
-                // Draw thrust
+                // Draw thrust if accelerating (assuming you draw thrust when moving)
+                PointF[] thrustShadowVertices = new PointF[ThrustPositionVertices.Length];
+                for (int i = 0; i < ThrustPositionVertices.Length; i++)
+                {
+                    thrustShadowVertices[i] = new PointF(ThrustPositionVertices[i].X + 4, ThrustPositionVertices[i].Y + 4);
+                }
+
+                using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Black)))
+                {
+                    gc.FillPolygon(shadowBrush, thrustShadowVertices);
+                }
+
                 gc.FillPolygon(this.ThrustBrush, this.ThrustPositionVertices);
+
+                using (Pen outlinePen = new Pen(Color.Black, 3))
+                {
+                    gc.DrawPolygon(outlinePen, this.ThrustPositionVertices);
+                }
             }
         }
     }

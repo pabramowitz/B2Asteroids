@@ -33,7 +33,20 @@ namespace Asteroids
 
         public override void Draw(Graphics gc)
         {
+            // Draw a small drop shadow for the bullet
+            using (Brush shadowBrush = new SolidBrush(Color.FromArgb(100, Color.Black)))
+            {
+                gc.FillRectangle(shadowBrush, this.Position.X - 1 + 2, this.Position.Y - 1 + 2, 3, 3);
+            }
+
+            // Draw the main bullet body
             gc.FillRectangle(this.BulletBrush, this.Position.X - 1, this.Position.Y - 1, 3, 3);
+
+            // Draw a black outline/border around the bullet
+            using (Pen outlinePen = new Pen(Color.Black, 1))
+            {
+                gc.DrawRectangle(outlinePen, this.Position.X - 1, this.Position.Y - 1, 3, 3);
+            }
         }
     }
 }
